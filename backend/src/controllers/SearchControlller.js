@@ -7,14 +7,14 @@ const index = async (req, res) => {
   // Filtrar por tecnologias
   const { latitude, longitude, techs } = req.query;
   const techsToArr = parseStringAsArray(techs);
+  console.log("techsToArr: ", techsToArr);
   const devs = await Dev.find({
     techs: {
       $in: techsToArr
     },
     location: {
       $near: {
-        $geometry: { type: "Point", coordinates: [longitude, latitude] },
-        $maxDistance: 10000
+        $geometry: { type: "Point", coordinates: [longitude, latitude] }
       }
     }
   });
